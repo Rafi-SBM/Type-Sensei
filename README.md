@@ -2,6 +2,8 @@
 
 **Surpass your limits. Right here. Right now.**
 
+**Link :** https://type-sensei.vercel.app 
+
 TypeSensei is a modern typing-practice web application designed to help you improve your typing speed and accuracy with meaningful, engaging content. Built with React and modern web technologies, it combines responsive design with intelligent text generation to create an effective learning experience.
 
 ## Key Features
