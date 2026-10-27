@@ -1,30 +1,64 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Type Sensei</title>
-    <meta name="description" content="Type Sensei - a typing-practice web app built with React and Tailwind." />
-    <meta name="author" content="Type Sensei" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Type Sensei - Typing Speed Test and Trainer</title>
+    <meta
+      name="description"
+      content="A focused typing trainer. Measure words per minute, accuracy and consistency across timed, word-count and passage tests. Works offline, stores nothing off your device."
+    />
+    <link rel="canonical" href="https://type-sensei.vercel.app/" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#121316" />
 
-    <meta property="og:title" content="Type Sensei" />
-    <meta property="og:description" content="Practice typing with timed and practice modes, per-quote stats, and a clean responsive UI." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/favicon.png" />
+    <meta property="og:url" content="https://type-sensei.vercel.app/" />
+    <meta property="og:title" content="Type Sensei - Typing Speed Test and Trainer" />
+    <meta
+      property="og:description"
+      content="Measure words per minute, accuracy and consistency across timed, word-count and passage tests."
+    />
+    <meta property="og:image" content="https://type-sensei.vercel.app/icon-512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Type Sensei - Typing Speed Test and Trainer" />
+    <meta
+      name="twitter:description"
+      content="Measure words per minute, accuracy and consistency across timed, word-count and passage tests."
+    />
+    <meta name="twitter:image" content="https://type-sensei.vercel.app/icon-512.png" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@TypeSensei" />
-    <meta name="twitter:image" content="/favicon.png" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Applies the saved theme before first paint to avoid a flash of the wrong one. -->
+    <script src="/theme.js"></script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Type Sensei",
+        "url": "https://type-sensei.vercel.app/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any",
+        "description": "A typing trainer that measures words per minute, accuracy and consistency.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
+    <noscript>
+      <p style="font-family: system-ui, sans-serif; padding: 2rem; text-align: center">
+        Type Sensei needs JavaScript to measure keystrokes. Please enable it and reload.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

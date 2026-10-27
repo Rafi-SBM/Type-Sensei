@@ -2,325 +2,146 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * One palette per theme. Every colour the app uses is listed here, which keeps
+ * contrast decisions in a single place: text on background, and muted text on
+ * background, both clear the WCAG AA 4.5:1 threshold in every theme below.
+ */
 @layer base {
-  :root {
-    /* Simple student-style color palette */
-    --background: 0 0% 96%;
-    --foreground: 0 0% 20%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 20%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 20%;
-
-    --primary: 211 100% 50%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 0 0% 93%;
-    --secondary-foreground: 0 0% 20%;
-
-    --muted: 0 0% 93%;
-    --muted-foreground: 0 0% 45%;
-
-    --accent: 0 0% 93%;
-    --accent-foreground: 0 0% 20%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 87%;
-    --input: 0 0% 87%;
-    --ring: 211 100% 50%;
-
-    --radius: 6px;
-
-    /* Typing game specific colors */
-    --correct-bg: 90 60% 92%;
-    --correct-text: 120 80% 22%;
-    --wrong-bg: 0 70% 94%;
-    --wrong-text: 0 60% 30%;
-    --current-char: 211 100% 50%;
+  :root,
+  :root[data-theme="light"] {
+    --background: #f5f6f8;
+    --surface: #e9ebef;
+    --surface-strong: #dcdfe5;
+    --line: #cbd0d8;
+    --text: #1d2026;
+    --muted: #61656e;
+    --accent: #1f6feb;
+    --accent-contrast: #ffffff;
+    --caret: #1f6feb;
+    --error: #c42b1c;
+    --success: #1a7f37;
+    --theme-color: #f5f6f8;
   }
 
-  .dark {
-    --background: 0 0% 8%;
-    --foreground: 0 0% 95%;
-    --card: 0 0% 12%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 211 100% 60%;
-    --primary-foreground: 0 0% 8%;
-    --secondary: 0 0% 20%;
-    --secondary-foreground: 0 0% 95%;
-    --muted: 0 0% 30%;
-    --muted-foreground: 0 0% 70%;
-    --accent: 0 0% 20%;
-    --accent-foreground: 0 0% 95%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 8%;
-    --border: 0 0% 25%;
-    --input: 0 0% 18%;
-    --ring: 211 100% 60%;
+  :root[data-theme="dark"] {
+    --background: #121316;
+    --surface: #1c1e22;
+    --surface-strong: #272a30;
+    --line: #333740;
+    --text: #e8eaed;
+    --muted: #8c929d;
+    --accent: #4d9fff;
+    --accent-contrast: #0a0c0f;
+    --caret: #4d9fff;
+    --error: #ff6b6b;
+    --success: #4ade80;
+    --theme-color: #121316;
   }
-}
 
-@layer base {
+  :root[data-theme="slate"] {
+    --background: #171c26;
+    --surface: #1f2634;
+    --surface-strong: #2a3344;
+    --line: #38425a;
+    --text: #e4e9f2;
+    --muted: #8e99af;
+    --accent: #7dd3c0;
+    --accent-contrast: #0c1118;
+    --caret: #7dd3c0;
+    --error: #f87f8d;
+    --success: #6ee7a8;
+    --theme-color: #171c26;
+  }
+
+  :root[data-theme="amber"] {
+    --background: #faf5ea;
+    --surface: #f0e7d5;
+    --surface-strong: #e5d9c1;
+    --line: #d4c4a6;
+    --text: #2a2317;
+    --muted: #6b5f48;
+    --accent: #a8560d;
+    --accent-contrast: #fdfaf4;
+    --caret: #a8560d;
+    --error: #b22a16;
+    --success: #4f6f1c;
+    --theme-color: #faf5ea;
+  }
+
+  :root[data-theme="forest"] {
+    --background: #101a14;
+    --surface: #18251d;
+    --surface-strong: #213128;
+    --line: #2d4036;
+    --text: #e2ece4;
+    --muted: #8aa294;
+    --accent: #71c98a;
+    --accent-contrast: #081009;
+    --caret: #71c98a;
+    --error: #f08080;
+    --success: #9ae6a0;
+    --theme-color: #101a14;
+  }
+
   * {
-    @apply border-border;
+    @apply border-line;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    @apply bg-background font-sans text-text antialiased;
+    /* The typing surface should never bounce or select under the cursor. */
+    overscroll-behavior-y: none;
+  }
+
+  /* Monospace is only used where character width has to be stable. */
+  .font-mono {
+    font-variant-ligatures: none;
+    font-feature-settings: "calt" 0;
+  }
+
+  :focus-visible {
+    outline: none;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-/* Typing game styles */
-.typing-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 24px;
-}
+@layer components {
+  /* Range input styling, kept here because pseudo-elements need real CSS. */
+  input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 9999px;
+    background: var(--accent);
+    cursor: pointer;
+  }
 
-/* Quote box moved to bottom for organization */
-
-.char {
-  display: inline;
-  padding: 2px 0;
-  transition: background-color 0.05s;
-}
-
-.char-correct {
-  background-color: hsl(var(--correct-bg));
-  color: hsl(var(--correct-text));
-}
-
-.char-wrong {
-  background-color: hsl(var(--wrong-bg));
-  color: hsl(var(--wrong-text));
-}
-
-.char-current {
-  border-bottom: 2px solid hsl(var(--current-char));
-}
-
-.typing-input {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 16px;
-  font-family: "Courier New", Courier, monospace;
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
-  outline: none;
-  background: hsl(var(--card));
-  color: hsl(var(--foreground));
-}
-
-.typing-input:focus {
-  border-color: hsl(var(--primary));
-}
-
-.typing-input:disabled {
-  background: hsl(var(--muted));
-  cursor: not-allowed;
-}
-
-/* Mode selector styles */
-.mode-selector {
-  text-align: center;
-}
-
-.mode-label {
-  font-size: 12px;
-  color: hsl(var(--muted-foreground));
-  margin-right: 12px;
-  text-transform: lowercase;
-}
-
-.mode-btn {
-  padding: 6px 16px;
-  font-size: 14px;
-  border: none;
-  border-radius: var(--radius);
-  background: transparent;
-  color: hsl(var(--muted-foreground));
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.mode-btn:hover {
-  color: hsl(var(--foreground));
-}
-
-.mode-btn-active {
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-}
-
-/* Custom time input */
-.custom-time-input {
-  display: inline-flex;
-  align-items: center;
-}
-
-.time-input {
-  width: 60px;
-  padding: 4px 8px;
-  font-size: 14px;
-  text-align: center;
-  border: 1px solid hsl(var(--primary));
-  border-radius: var(--radius);
-  background: hsl(var(--card));
-  color: hsl(var(--foreground));
-  outline: none;
-}
-
-.time-input::-webkit-outer-spin-button,
-.time-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.time-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-.level-btn {
-  padding: 8px 20px;
-  font-size: 14px;
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
-  background: hsl(var(--card));
-  color: hsl(var(--foreground));
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.level-btn:hover {
-  background: hsl(var(--secondary));
-}
-
-.level-btn-active {
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  border-color: hsl(var(--primary));
-}
-
-.stats-bar {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  padding: 16px;
-  font-size: 14px;
-}
-
-.stat-item {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-
-.stat-label {
-  color: hsl(var(--muted-foreground));
-  font-size: 12px;
-  text-transform: lowercase;
-}
-
-.stat-value {
-  font-size: 24px;
-  font-weight: 500;
-  color: hsl(var(--foreground));
-}
-
-.stat-time {
-  font-size: 32px;
-  color: hsl(var(--primary));
-}
-
-.text-correct {
-  color: hsl(var(--correct-text));
-}
-
-.text-wrong {
-  color: hsl(var(--wrong-text));
-}
-
-.results-card {
-  background: hsl(var(--card));
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
-  padding: 24px;
-  text-align: center;
-}
-
-.results-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: hsl(var(--foreground));
-}
-
-.results-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.result-item {
-  padding: 12px;
-  background: hsl(var(--secondary));
-  border-radius: var(--radius);
-}
-
-.result-label {
-  font-size: 12px;
-  color: hsl(var(--muted-foreground));
-}
-
-.result-value {
-  font-size: 24px;
-  font-weight: 700;
-  color: hsl(var(--foreground));
-}
-
-.best-score {
-  padding: 12px;
-  background: hsl(var(--correct-bg));
-  border-radius: var(--radius);
-  margin-bottom: 20px;
-}
-
-.play-btn {
-  padding: 12px 32px;
-  font-size: 16px;
-  font-weight: 500;
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-
-.play-btn:hover {
-  opacity: 0.9;
-}
-
-/* Quote box with scroll for continuous text */
-.quote-box {
-  background: hsl(var(--card));
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
-  padding: 20px;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 18px;
-  line-height: 1.8;
-  letter-spacing: 0.5px;
-  max-height: 180px;
-  overflow-y: auto;
+  input[type="range"]::-moz-range-thumb {
+    height: 1rem;
+    width: 1rem;
+    border: none;
+    border-radius: 9999px;
+    background: var(--accent);
+    cursor: pointer;
+  }
 }

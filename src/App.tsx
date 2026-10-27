@@ -1,15 +1,20 @@
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { SettingsProvider } from "@/components/SettingsProvider";
+import Home from "@/pages/Home";
+import NotFound from "@/pages/NotFound";
 
-const App = () => (
-  <TooltipProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Index />} />
-      </Routes>
-    </BrowserRouter>
-  </TooltipProvider>
-);
-
-export default App;
+export default function App() {
+  return (
+    <ErrorBoundary>
+      <SettingsProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </SettingsProvider>
+    </ErrorBoundary>
+  );
+}
