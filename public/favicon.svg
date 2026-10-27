@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Type Sensei">
+  <rect width="32" height="32" rx="7" fill="#121316"/>
+  <g transform="translate(3 3) scale(1.0833)"
+     fill="none" stroke="#4d9fff" stroke-width="2.1"
+     stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="M6 8h.01"/>
+    <path d="M10 8h.01"/>
+    <path d="M14 8h.01"/>
+    <path d="M18 8h.01"/>
+    <path d="M8 12h.01"/>
+    <path d="M12 12h.01"/>
+    <path d="M16 12h.01"/>
+    <path d="M7 16h10"/>
+  </g>
+</svg>

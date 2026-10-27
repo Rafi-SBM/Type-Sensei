@@ -5,10 +5,10 @@
  * falling back to the cached shell when offline. Hashed build assets are
  * immutable, so they are served cache-first.
  */
-const VERSION = "v1";
+const VERSION = "v2";
 const SHELL_CACHE = `type-sensei-shell-${VERSION}`;
 const ASSET_CACHE = `type-sensei-assets-${VERSION}`;
-const SHELL = ["/", "/theme.js", "/site.webmanifest", "/favicon.png", "/icon-192.png"];
+const SHELL = ["/", "/theme.js", "/site.webmanifest", "/favicon.svg", "/favicon.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
