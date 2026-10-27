@@ -3,6 +3,7 @@ import {
   createState,
   progress,
   reducer,
+  REFILL_LOOKAHEAD,
   summarize,
   type EngineConfig,
 } from "@/lib/engine";
@@ -95,7 +96,7 @@ export function useTypingTest({ settings, history, onComplete, onKeystroke }: Ty
   const isFinished = state.status === "finished";
 
   useEffect(() => {
-    if (isFinished || !isTimeMode || remainingWords > 20) return;
+    if (isFinished || !isTimeMode || remainingWords > REFILL_LOOKAHEAD) return;
     const current = settingsRef.current;
     dispatch({
       type: "append",

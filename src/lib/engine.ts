@@ -231,8 +231,11 @@ export function summarize(state: EngineState): EngineSummary {
   };
 }
 
+/** How few words may remain ahead of the cursor before more are generated. */
+export const REFILL_LOOKAHEAD = 20;
+
 /** True when a time-mode test is close enough to the end of its text to need more. */
-export function needsMoreWords(state: EngineState, lookahead = 20): boolean {
+export function needsMoreWords(state: EngineState, lookahead = REFILL_LOOKAHEAD): boolean {
   return state.config.mode === "time" && state.words.length - state.activeIndex <= lookahead;
 }
 
