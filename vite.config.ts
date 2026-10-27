@@ -1,25 +1,36 @@
-import { defineConfig } from "vite";
+/// <reference types="vitest" />
 import react from "@vitejs/plugin-react-swc";
-import path from "path";
-import { componentTagger } from "lovable-tagger";
+import path from "node:path";
+import { defineConfig } from "vite";
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig({
+  plugins: [react()],
   server: {
-    host: "::",
+    host: true,
     port: 8080,
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  preview: {
+    port: 8080,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
   build: {
+    target: "es2020",
+    sourcemap: true,
     rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html'),
+      output: {
+        // Keep React in its own long-lived chunk so app updates stay small.
+        manualChunks: {
+          react: ["react", "react-dom", "react-router-dom"],
+        },
       },
     },
   },
-}));
+  test: {
+    environment: "node",
+    include: ["src/**/*.test.ts"],
+  },
+});
